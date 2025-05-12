@@ -42,7 +42,15 @@ readonly class TasksController extends AbstractTodoController
      */
     function store(Request $request): JsonResponse
     {
+        /*
+         * Валидируем типы предоставленных данных
+         * */
         $this->validator::validateStore($request);
+        /*
+         * Проверяем существует ли статус по предоставленному Id-шнику.
+         * */
+        $this->validator::validateIdStatus($request->input('status'));
+
         $result = $this->serviceTasks->store(
             new DtoTasks(
                 title: $request->input('title'),
