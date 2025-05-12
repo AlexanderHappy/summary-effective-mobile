@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Dto\DtoTasks;
+use App\Dto\DtoTask;
 use App\Interfaces\InterfaceRepositoryTasks;
 use Illuminate\Support\Collection;
 
@@ -19,7 +19,7 @@ readonly class ServiceTasks
         return $this->repositoryTasks->index();
     }
 
-    public function show(int $id): DtoTasks
+    public function show(int $id): DtoTask
     {
         return $this->repositoryTasks->show($id);
     }
@@ -29,7 +29,7 @@ readonly class ServiceTasks
         // TODO: Implement edit() method.
     }
 
-    public function store(DtoTasks $dtoTasks): bool
+    public function store(DtoTask $dtoTasks): bool
     {
         return $this->repositoryTasks->store(
             $dtoTasks

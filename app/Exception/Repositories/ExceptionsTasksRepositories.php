@@ -2,12 +2,14 @@
 
 namespace App\Exception\Repositories;
 
-use App\Exception\Requests\ExceptionWrongDataTasksProvided;
 use Exception;
 
+/*
+ * TODO заменить на Абстрактный класс
+ * */
 class ExceptionsTasksRepositories extends Exception
 {
-    public function __construct($message, $code = 204)
+    public function __construct($message, $code = 500)
     {
         parent::__construct($message, $code);
     }

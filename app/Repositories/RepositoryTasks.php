@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Dto\DtoTasks;
+use App\Dto\DtoTask;
 use App\Exception\Repositories\ExceptionsTasksRepositories;
 use App\Interfaces\InterfaceRepositoryTasks;
 use App\Models\Tasks;
@@ -26,7 +26,7 @@ class RepositoryTasks implements InterfaceRepositoryTasks
         $this->validator::validateIndex($tasks);
 
         return $tasks->map(function ($task) {
-            return new DtoTasks(
+            return new DtoTask(
                 id: $task->id,
                 title: $task->title,
                 description: $task->description,
@@ -38,15 +38,12 @@ class RepositoryTasks implements InterfaceRepositoryTasks
     /**
      * @throws ExceptionsTasksRepositories
      */
-    public function show(int $id): DtoTasks
+    public function show(int $id): DtoTask
     {
-        /*
-         * Todo Добавить разные сообщения для index и read.
-         * */
         $task = Tasks::with('status')->find($id);
         $this->validator::validateRead($task, $id);
 
-        return new DtoTasks(
+        return new DtoTask(
             id: $task->id,
             title: $task->title,
             description: $task->description,
@@ -59,7 +56,7 @@ class RepositoryTasks implements InterfaceRepositoryTasks
         // TODO: Implement edit() method.
     }
 
-    public function store(DtoTasks $dtoTasks): bool
+    public function store(DtoTask $dtoTasks): bool
     {
         return Tasks::insert([
             'title' => $dtoTasks->__get('title'),

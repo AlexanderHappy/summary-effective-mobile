@@ -6,7 +6,7 @@ use Exception;
 
 class ExceptionWrongDataTasksProvided extends Exception
 {
-    public function __construct($message, $code = 204)
+    public function __construct($message, $code = 500)
     {
         parent::__construct($message, $code);
     }

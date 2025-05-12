@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dto\DtoTasks;
+use App\Dto\DtoTask;
 use App\Exception\Requests\ExceptionWrongDataTasksProvided;
 use App\Service\ServiceTasks;
 use App\Validators\Requests\ValidatorTasks;
@@ -31,7 +31,8 @@ readonly class TasksController extends AbstractTodoController
     function show(int $id)
     {
         return response()->json(
-            $this->serviceTasks->show($id)->getPropsInArray()
+            $this->serviceTasks->show($id)
+                ->getPropsInArray()
         );
     }
 
@@ -55,7 +56,7 @@ readonly class TasksController extends AbstractTodoController
         $this->validator::validateIdStatus($request->input('status'));
 
         $result = $this->serviceTasks->store(
-            new DtoTasks(
+            new DtoTask(
                 id: null,
                 title: $request->input('title'),
                 description: $request->input('description'),

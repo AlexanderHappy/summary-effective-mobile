@@ -2,7 +2,7 @@
 
 namespace App\Dto;
 
-class DtoTasks extends AbstractDto
+class DtoTask extends AbstractDto
 {
     public function __construct(
         protected ?int $id = null,
