@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Dto\DtoTasks;
 use App\Interfaces\InterfaceRepositoryTasks;
+use Illuminate\Support\Collection;
 
 readonly class ServiceTasks
 {
@@ -13,9 +14,9 @@ readonly class ServiceTasks
     {
     }
 
-    public function index()
+    public function index(): Collection
     {
-        // TODO: Implement index() method.
+        return $this->repositoryTasks->index();
     }
 
     public function show()

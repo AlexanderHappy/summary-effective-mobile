@@ -18,12 +18,12 @@ readonly class TasksController extends AbstractTodoController
     {
     }
 
-    function index()
+    function index(): JsonResponse
     {
         return response()->json(
-            [
-                "Hello World!",
-            ]
+            $this->serviceTasks->index()->map(function ($task) {
+                return $task->getPropsInArray();
+            })->toArray()
         );
     }
 
