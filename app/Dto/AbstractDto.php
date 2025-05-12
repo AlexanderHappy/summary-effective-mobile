@@ -24,6 +24,9 @@ class AbstractDto
         throw new BadMethodCallException("Cannot set property '$name'.");
     }
 
+    /*
+     * TODO Посмотреть можно ли от этого избавиться
+     * */
     public function getPropsInArray(): array
     {
         return get_object_vars($this);

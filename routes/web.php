@@ -10,6 +10,6 @@ Route::get('/', function () {
 Route::controller(TasksController::class)->group(function () {
     Route::post("/tasks", "store");
     Route::get("/tasks", "index");
-    Route::post("/read/", "read");
+    Route::get("/tasks/{id}", "show");
     Route::delete("/destroy/", "destroy");
 });

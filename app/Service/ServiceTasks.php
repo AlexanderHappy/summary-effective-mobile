@@ -19,9 +19,9 @@ readonly class ServiceTasks
         return $this->repositoryTasks->index();
     }
 
-    public function show()
+    public function show(int $id): DtoTasks
     {
-        // TODO: Implement show() method.
+        return $this->repositoryTasks->show($id);
     }
 
     public function edit()

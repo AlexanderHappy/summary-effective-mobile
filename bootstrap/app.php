@@ -1,5 +1,6 @@
 <?php
 
+use App\Exception\Repositories\ExceptionsTasksRepositories;
 use App\Exception\Requests\ExceptionWrongDataTasksProvided;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -19,6 +20,13 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (ExceptionWrongDataTasksProvided $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ]);
+        });
+
+        $exceptions->render(function (ExceptionsTasksRepositories $e) {
             return response()->json([
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),

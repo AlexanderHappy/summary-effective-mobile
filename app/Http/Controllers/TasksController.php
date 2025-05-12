@@ -13,7 +13,7 @@ readonly class TasksController extends AbstractTodoController
 {
     public function __construct(
         private ValidatorTasks $validator,
-        private ServiceTasks $serviceTasks,
+        private ServiceTasks   $serviceTasks,
     )
     {
     }
@@ -21,15 +21,18 @@ readonly class TasksController extends AbstractTodoController
     function index(): JsonResponse
     {
         return response()->json(
-            $this->serviceTasks->index()->map(function ($task) {
-                return $task->getPropsInArray();
-            })->toArray()
+            $this->serviceTasks->index()
+                ->map(function ($task) {
+                    return $task->getPropsInArray();
+                })->toArray()
         );
     }
 
-    function show()
+    function show(int $id)
     {
-        // TODO: Implement show() method.
+        return response()->json(
+            $this->serviceTasks->show($id)->getPropsInArray()
+        );
     }
 
     function edit()
@@ -53,6 +56,7 @@ readonly class TasksController extends AbstractTodoController
 
         $result = $this->serviceTasks->store(
             new DtoTasks(
+                id: null,
                 title: $request->input('title'),
                 description: $request->input('description'),
                 status: $request->input('status'),
