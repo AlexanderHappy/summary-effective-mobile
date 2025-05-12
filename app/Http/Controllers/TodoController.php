@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TodoController extends AbstractTodoController
@@ -25,9 +26,15 @@ class TodoController extends AbstractTodoController
         // TODO: Implement edit() method.
     }
 
-    function store(Request $request)
+    function store(Request $request): JsonResponse
     {
         dd($request->all());
+
+        return response()->json(
+            [
+                "Hello World!",
+            ]
+        );
     }
 
     function destroy()
