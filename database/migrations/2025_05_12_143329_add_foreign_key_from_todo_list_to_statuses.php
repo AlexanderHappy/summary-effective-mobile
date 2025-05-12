@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_name');
-            $table->string("password")->unique();
-            $table->timestamps();
+        Schema::table('todo_list', function (Blueprint $table) {
+            $table->foreignId('status')
+                ->constrained('status_list');
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('todo_list', function (Blueprint $table) {
+            $table->dropForeign('todo_list_status_foreign');
+        });
     }
 };
