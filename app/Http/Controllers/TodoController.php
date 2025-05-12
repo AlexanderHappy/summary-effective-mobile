@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exception\Requests\ExceptionWrongDataTasksProvided;
+use App\Validators\Requests\ValidatorTasks;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TodoController extends AbstractTodoController
 {
+    public function __construct(
+        private ValidatorTasks $validator,
+    )
+    {
+    }
+
     function index()
     {
         return response()->json(
@@ -26,9 +34,13 @@ class TodoController extends AbstractTodoController
         // TODO: Implement edit() method.
     }
 
+    /**
+     * @throws ExceptionWrongDataTasksProvided
+     */
     function store(Request $request): JsonResponse
     {
-        dd($request->all());
+        $this->validator::validateStore($request);
+
 
         return response()->json(
             [
