@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\StatusList;
+use App\Models\Statuses;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class StatusListFactory extends Factory
+class StatusesFactory extends Factory
 {
-    protected $model = StatusList::class;
+    protected $model = Statuses::class;
 
     public function definition(): array
     {

@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\StatusList;
+use App\Models\Statuses;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Factories\StatusListFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        StatusList::factory(10)->create();
+        Statuses::factory(10)->create();
         User::factory(1)->create();
     }
 }

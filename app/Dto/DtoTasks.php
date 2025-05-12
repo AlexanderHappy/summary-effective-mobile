@@ -2,7 +2,7 @@
 
 namespace App\Dto;
 
-class DtoTasks
+class DtoTasks extends AbstractDto
 {
     public function __construct(
         protected string $title,

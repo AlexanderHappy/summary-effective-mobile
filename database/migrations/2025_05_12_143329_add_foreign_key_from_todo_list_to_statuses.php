@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('todo_list', function (Blueprint $table) {
+        Schema::table('tasks', function (Blueprint $table) {
             $table->foreignId('status')
-                ->constrained('status_list');
+                ->constrained('statuses');
         });
     }
 
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('todo_list', function (Blueprint $table) {
-            $table->dropForeign('todo_list_status_foreign');
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->dropForeign('tasks_statuses_foreign');
         });
     }
 };

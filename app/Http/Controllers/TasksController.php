@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\DtoTasks;
 use App\Exception\Requests\ExceptionWrongDataTasksProvided;
+use App\Service\ServiceTasks;
 use App\Validators\Requests\ValidatorTasks;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class TodoController extends AbstractTodoController
+readonly class TasksController extends AbstractTodoController
 {
     public function __construct(
         private ValidatorTasks $validator,
+        private ServiceTasks $serviceTasks,
     )
     {
     }
@@ -40,13 +43,18 @@ class TodoController extends AbstractTodoController
     function store(Request $request): JsonResponse
     {
         $this->validator::validateStore($request);
-
-
-        return response()->json(
-            [
-                "Hello World!",
-            ]
+        $result = $this->serviceTasks->store(
+            new DtoTasks(
+                title: $request->input('title'),
+                description: $request->input('description'),
+                status: $request->input('status'),
+            )
         );
+
+        return response()->json([
+            'result' => $result,
+            'message' => 'Record is added successfully.',
+        ]);
     }
 
     function destroy()

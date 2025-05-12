@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusList extends Model
+class Statuses extends Model
 {
     use HasFactory;
 
-    protected $table = 'status_list';
+    protected $table = 'statuses';
     protected $primaryKey = 'id';
     protected $fillable = [
         'title',
@@ -17,6 +17,6 @@ class StatusList extends Model
 
     public function status(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(StatusList::class);
+        return $this->belongsTo(Statuses::class);
     }
 }
