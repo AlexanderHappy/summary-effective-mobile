@@ -28,17 +28,42 @@ readonly class TasksController extends AbstractTodoController
         );
     }
 
-    function show(int $id)
+    function read(int $taskId)
     {
         return response()->json(
-            $this->serviceTasks->show($id)
+            $this->serviceTasks->read($taskId)
                 ->getPropsInArray()
         );
     }
 
-    function edit()
+
+    /**
+     * @throws ExceptionWrongDataTasksProvided
+     */
+    function edit(Request $request, int $taskId): JsonResponse
     {
-        // TODO: Implement edit() method.
+        /*
+         * Валидируем типы предоставленных данных
+         * */
+        $this->validator::validateEdit($request);
+        /*
+         * Проверяем существует ли статус по предоставленному Id-шнику.
+         * */
+        $this->validator::validateIdStatus($request->input('status'));
+
+        $result = $this->serviceTasks->edit(
+            new DtoTask(
+                id: $taskId,
+                title: $request->input('title'),
+                description: $request->input('description'),
+                status: $request->input('status'),
+            )
+        );
+
+        return response()->json([
+            'result' => $result,
+            'message' => 'Record is updated successfully.',
+        ]);
     }
 
     /**
@@ -70,8 +95,11 @@ readonly class TasksController extends AbstractTodoController
         ]);
     }
 
-    function destroy()
+    function destroy(int $taskId): JsonResponse
     {
-        // TODO: Implement destroy() method.
+        return response()->json([
+            'result' => $this->serviceTasks->destroy($taskId),
+            'message' => 'Record is deleted successfully.',
+        ]);
     }
 }

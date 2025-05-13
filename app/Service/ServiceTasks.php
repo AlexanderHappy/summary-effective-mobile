@@ -19,14 +19,14 @@ readonly class ServiceTasks
         return $this->repositoryTasks->index();
     }
 
-    public function show(int $id): DtoTask
+    public function read(int $taskId): DtoTask
     {
-        return $this->repositoryTasks->show($id);
+        return $this->repositoryTasks->read($taskId);
     }
 
-    public function edit()
+    public function edit(DtoTask $dtoTasks): bool
     {
-        // TODO: Implement edit() method.
+        return $this->repositoryTasks->edit($dtoTasks);
     }
 
     public function store(DtoTask $dtoTasks): bool
@@ -36,8 +36,8 @@ readonly class ServiceTasks
         );
     }
 
-    public function destroy()
+    public function destroy(int $taskId): bool
     {
-        // TODO: Implement destroy() method.
+        return $this->repositoryTasks->destroy($taskId);
     }
 }

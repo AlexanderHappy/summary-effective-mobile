@@ -15,11 +15,32 @@ class ValidatorTasks
      */
     public static function validateStore(Request $request): void
     {
-        $validator = Validator::make($request->all(), [
+        self::validateRequest($request, [
             'title' => 'required|string|max:255',
             'description' => 'string',
             'status' => 'integer',
         ]);
+    }
+
+    /**
+     * @throws ExceptionWrongDataTasksProvided
+     */
+    public static function validateEdit(Request $request): void
+    {
+        self::validateRequest($request, [
+            'id' => 'required|integer',
+            'title' => 'string|max:255',
+            'description' => 'string',
+            'status' => 'integer',
+        ]);
+    }
+
+    /**
+     * @throws ExceptionWrongDataTasksProvided
+     */
+    protected static function validateRequest(Request $request, array $rules): void
+    {
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             throw new ExceptionWrongDataTasksProvided(

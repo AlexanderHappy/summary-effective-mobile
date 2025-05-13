@@ -38,10 +38,10 @@ class RepositoryTasks implements InterfaceRepositoryTasks
     /**
      * @throws ExceptionsTasksRepositories
      */
-    public function show(int $id): DtoTask
+    public function read(int $taskId): DtoTask
     {
-        $task = Tasks::with('status')->find($id);
-        $this->validator::validateRead($task, $id);
+        $task = Tasks::with('status')->find($taskId);
+        $this->validator::validateFind($task, $taskId);
 
         return new DtoTask(
             id: $task->id,
@@ -51,9 +51,16 @@ class RepositoryTasks implements InterfaceRepositoryTasks
         );
     }
 
-    public function edit()
+    public function edit(DtoTask $dtoTasks): bool
     {
-        // TODO: Implement edit() method.
+        $task = Tasks::find($dtoTasks->__get('id'));
+        $this->validator::validateFind($task, $dtoTasks->__get('id'));
+
+        return $task->update([
+            'title' => $dtoTasks->__get('title'),
+            'description' => $dtoTasks->__get('description'),
+            'status' => $dtoTasks->__get('status')
+        ]);
     }
 
     public function store(DtoTask $dtoTasks): bool
@@ -67,8 +74,14 @@ class RepositoryTasks implements InterfaceRepositoryTasks
         ]);
     }
 
-    public function destroy()
+    /**
+     * @throws ExceptionsTasksRepositories
+     */
+    public function destroy(int $taskId): bool
     {
-        // TODO: Implement destroy() method.
+        $result = Tasks::destroy($taskId);
+        $this->validator::validateDestroy($result, $taskId);
+
+        return $result;
     }
 }

@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 interface InterfaceRepositoryTasks
 {
     public function index(): Collection;
-    public function show(int $id): DtoTask;
-    public function edit();
+    public function read(int $taskId): DtoTask;
+    public function edit(DtoTask $dtoTasks);
     public function store(DtoTask $dtoTasks): bool;
-    public function destroy();
+    public function destroy(int $taskId);
 }

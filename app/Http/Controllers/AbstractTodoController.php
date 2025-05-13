@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 readonly abstract class AbstractTodoController
 {
     abstract function index();
-    abstract function show(int $id);
-    abstract function edit();
+    abstract function read(int $taskId);
+    abstract function edit(Request $request, int $taskId);
     abstract function store(Request $request);
-    abstract function destroy();
+    abstract function destroy(int $taskId);
 }

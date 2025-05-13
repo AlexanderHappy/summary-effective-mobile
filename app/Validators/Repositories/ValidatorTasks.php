@@ -13,24 +13,55 @@ class ValidatorTasks
      */
     public static function validateIndex(Collection $tasks): void
     {
-        if ($tasks->isEmpty()) {
-            throw new ExceptionsTasksRepositories(
-                "Nothing was found in the database.",
-                422
-            );
+        self::validateNotEmpty($tasks, "Nothing was found in the database.");
+    }
+
+    /**
+     * @throws ExceptionsTasksRepositories
+     */
+    public static function validateFind(?Tasks $task, int $id): void
+    {
+        self::validateExists($task, "Nothing was found in the database by id: {$id}.");
+    }
+
+    /**
+     * @throws ExceptionsTasksRepositories
+     */
+    public static function validateDestroy(bool $result, int $taskId): void
+    {
+        self::validateOperationResult(
+            $result,
+            "Nothing had been deleted in the database by id: {$taskId}."
+        );
+    }
+
+    /**
+     * @throws ExceptionsTasksRepositories
+     */
+    protected static function validateNotEmpty(Collection $collection, string $errorMessage): void
+    {
+        if ($collection->isEmpty()) {
+            throw new ExceptionsTasksRepositories($errorMessage, 422);
         }
     }
 
     /**
      * @throws ExceptionsTasksRepositories
      */
-    public static function validateRead(Tasks|null $task, int $id): void
+    protected static function validateExists(?object $entity, string $errorMessage): void
     {
-        if (is_null($task)) {
-            throw new ExceptionsTasksRepositories(
-                "Nothing was found in the database by id: " . $id . '.',
-                422
-            );
+        if (is_null($entity)) {
+            throw new ExceptionsTasksRepositories($errorMessage, 422);
+        }
+    }
+
+    /**
+     * @throws ExceptionsTasksRepositories
+     */
+    protected static function validateOperationResult(bool $result, string $errorMessage): void
+    {
+        if (!$result) {
+            throw new ExceptionsTasksRepositories($errorMessage, 422);
         }
     }
 }
