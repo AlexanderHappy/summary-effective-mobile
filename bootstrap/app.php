@@ -19,14 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(\App\Http\Middleware\AuthenticateOnceWithBasicAuth::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (ExceptionWrongDataTasksProvided $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-                'code' => $e->getCode(),
-            ]);
-        });
-
-        $exceptions->render(function (ExceptionsTasksRepositories $e) {
+        $exceptions->render(function (ValueError $e) {
             return response()->json([
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),

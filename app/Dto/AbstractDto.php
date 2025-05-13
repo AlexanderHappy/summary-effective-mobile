@@ -14,16 +14,6 @@ class AbstractDto
 
         return null;
     }
-
-    public function __set(string $name, $value): void
-    {
-        if (property_exists($this, $name)) {
-            $this->$name = $value;
-            return;
-        }
-        throw new BadMethodCallException("Cannot set property '$name'.");
-    }
-
     /*
      * TODO Посмотреть можно ли от этого избавиться
      * */

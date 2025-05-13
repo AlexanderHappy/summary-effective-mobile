@@ -24,7 +24,7 @@ readonly class TasksController extends AbstractTodoController
             $this->serviceTasks->index()
                 ->map(function ($task) {
                     return $task->getPropsInArray();
-                })->toArray()
+                })
         );
     }
 
@@ -45,7 +45,7 @@ readonly class TasksController extends AbstractTodoController
         /*
          * Валидируем типы предоставленных данных
          * */
-        $this->validator::validateEdit($request);
+        $this->validator::validateProvidedData($request);
         /*
          * Проверяем существует ли статус по предоставленному Id-шнику.
          * */
@@ -74,7 +74,7 @@ readonly class TasksController extends AbstractTodoController
         /*
          * Валидируем типы предоставленных данных
          * */
-        $this->validator::validateStore($request);
+        $this->validator::validateProvidedData($request);
         /*
          * Проверяем существует ли статус по предоставленному Id-шнику.
          * */

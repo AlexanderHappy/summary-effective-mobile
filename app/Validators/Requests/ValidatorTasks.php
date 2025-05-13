@@ -2,48 +2,34 @@
 
 namespace App\Validators\Requests;
 
-use App\Exception\Requests\ExceptionWrongDataTasksProvided;
 use App\Models\Statuses;
-use App\Models\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use ValueError;
 
 class ValidatorTasks
 {
     /**
-     * @throws ExceptionWrongDataTasksProvided
+     * @throws ValueError
      */
-    public static function validateStore(Request $request): void
+    public static function validateProvidedData(Request $request): void
     {
         self::validateRequest($request, [
-            'title' => 'required|string|max:255',
-            'description' => 'string',
-            'status' => 'integer',
-        ]);
-    }
-
-    /**
-     * @throws ExceptionWrongDataTasksProvided
-     */
-    public static function validateEdit(Request $request): void
-    {
-        self::validateRequest($request, [
-            'id' => 'required|integer',
             'title' => 'string|max:255',
             'description' => 'string',
-            'status' => 'integer',
+            'status' => 'integer|required',
         ]);
     }
 
     /**
-     * @throws ExceptionWrongDataTasksProvided
+     * @throws ValueError
      */
     protected static function validateRequest(Request $request, array $rules): void
     {
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            throw new ExceptionWrongDataTasksProvided(
+            throw new ValueError(
                 $validator->errors()->first(),
                 422
             );
@@ -51,7 +37,7 @@ class ValidatorTasks
     }
 
     /**
-     * @throws ExceptionWrongDataTasksProvided
+     * @throws ValueError
      */
     public static function validateIdStatus(int $statusId): void
     {
@@ -63,7 +49,7 @@ class ValidatorTasks
                 $statuses .= "id: " . $status->id . ", title: " . $status->title . "; ";
             });
 
-            throw new ExceptionWrongDataTasksProvided(
+            throw new ValueError(
                 "Status not found for the provided ID. " . $statuses,
                 422
             );

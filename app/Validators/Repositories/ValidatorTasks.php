@@ -2,14 +2,14 @@
 
 namespace App\Validators\Repositories;
 
-use App\Exception\Repositories\ExceptionsTasksRepositories;
 use App\Models\Tasks;
 use Illuminate\Support\Collection;
+use ValueError;
 
 class ValidatorTasks
 {
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     public static function validateIndex(Collection $tasks): void
     {
@@ -17,7 +17,7 @@ class ValidatorTasks
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     public static function validateFind(?Tasks $task, int $id): void
     {
@@ -25,7 +25,7 @@ class ValidatorTasks
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     public static function validateDestroy(bool $result, int $taskId): void
     {
@@ -36,32 +36,32 @@ class ValidatorTasks
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     protected static function validateNotEmpty(Collection $collection, string $errorMessage): void
     {
         if ($collection->isEmpty()) {
-            throw new ExceptionsTasksRepositories($errorMessage, 422);
+            throw new ValueError($errorMessage, 422);
         }
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     protected static function validateExists(?object $entity, string $errorMessage): void
     {
         if (is_null($entity)) {
-            throw new ExceptionsTasksRepositories($errorMessage, 422);
+            throw new ValueError($errorMessage, 422);
         }
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     protected static function validateOperationResult(bool $result, string $errorMessage): void
     {
         if (!$result) {
-            throw new ExceptionsTasksRepositories($errorMessage, 422);
+            throw new ValueError($errorMessage, 422);
         }
     }
 }
