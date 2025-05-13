@@ -3,11 +3,11 @@
 namespace App\Repositories;
 
 use App\Dto\DtoTask;
-use App\Exception\Repositories\ExceptionsTasksRepositories;
 use App\Interfaces\InterfaceRepositoryTasks;
 use App\Models\Tasks;
 use App\Validators\Repositories\ValidatorTasks;
 use Illuminate\Support\Collection;
+use ValueError;
 
 class RepositoryTasks implements InterfaceRepositoryTasks
 {
@@ -18,7 +18,7 @@ class RepositoryTasks implements InterfaceRepositoryTasks
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     public function index(): Collection
     {
@@ -36,7 +36,7 @@ class RepositoryTasks implements InterfaceRepositoryTasks
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     public function read(int $taskId): DtoTask
     {
@@ -63,19 +63,19 @@ class RepositoryTasks implements InterfaceRepositoryTasks
         ]);
     }
 
-    public function store(DtoTask $dtoTasks): bool
+    public function store(DtoTask $dtoTasks): int
     {
-        return Tasks::insert([
+        return Tasks::create([
             'title' => $dtoTasks->__get('title'),
             'description' => $dtoTasks->__get('description'),
             'status' => $dtoTasks->__get('status'),
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ])->id;
     }
 
     /**
-     * @throws ExceptionsTasksRepositories
+     * @throws ValueError
      */
     public function destroy(int $taskId): bool
     {

@@ -29,7 +29,7 @@ readonly class ServiceTasks
         return $this->repositoryTasks->edit($dtoTasks);
     }
 
-    public function store(DtoTask $dtoTasks): bool
+    public function store(DtoTask $dtoTasks): int
     {
         return $this->repositoryTasks->store(
             $dtoTasks

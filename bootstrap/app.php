@@ -1,7 +1,6 @@
 <?php
 
-use App\Exception\Repositories\ExceptionsTasksRepositories;
-use App\Exception\Requests\ExceptionWrongDataTasksProvided;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

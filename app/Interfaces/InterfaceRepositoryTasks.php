@@ -10,6 +10,6 @@ interface InterfaceRepositoryTasks
     public function index(): Collection;
     public function read(int $taskId): DtoTask;
     public function edit(DtoTask $dtoTasks);
-    public function store(DtoTask $dtoTasks): bool;
+    public function store(DtoTask $dtoTasks): int;
     public function destroy(int $taskId);
 }

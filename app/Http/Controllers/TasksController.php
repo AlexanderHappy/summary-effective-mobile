@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Dto\DtoTask;
-use App\Exception\Requests\ExceptionWrongDataTasksProvided;
 use App\Service\ServiceTasks;
 use App\Validators\Requests\ValidatorTasks;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use ValueError;
 
 readonly class TasksController extends AbstractTodoController
 {
@@ -38,7 +38,7 @@ readonly class TasksController extends AbstractTodoController
 
 
     /**
-     * @throws ExceptionWrongDataTasksProvided
+     * @throws ValueError
      */
     function edit(Request $request, int $taskId): JsonResponse
     {
@@ -67,7 +67,7 @@ readonly class TasksController extends AbstractTodoController
     }
 
     /**
-     * @throws ExceptionWrongDataTasksProvided
+     * @throws ValueError
      */
     function store(Request $request): JsonResponse
     {
@@ -90,7 +90,7 @@ readonly class TasksController extends AbstractTodoController
         );
 
         return response()->json([
-            'result' => $result,
+            'result' => "Id of added record is " . $result,
             'message' => 'Record is added successfully.',
         ]);
     }
