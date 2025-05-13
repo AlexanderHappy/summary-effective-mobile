@@ -15,7 +15,7 @@ class ValidatorTasks
     public static function validateProvidedData(Request $request): void
     {
         self::validateRequest($request, [
-            'title' => 'string|max:255',
+            'title' => 'required|string|max:255|',
             'description' => 'string',
             'status' => 'integer|required',
         ]);
